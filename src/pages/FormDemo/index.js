@@ -1,3 +1,12 @@
+/*
+ * @Autor: zjq
+ * @Description: 
+ * @Version: 1.0
+ * @Date: 2021-01-18 10:07:30
+ * @LastEditors: zjq
+ * @LastEditTime: 2021-01-18 13:48:35
+ * @FilePath: /react-web/src/pages/FormDemo/index.js
+ */
 import React, { useEffect, useMemo } from 'react';
 import { Table, Button, Switch, Row, Divider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -20,27 +29,29 @@ const FormDemoPage = () => {
   const columns = useMemo(
     () => [
       {
-        title: '项目名称',
-        dataIndex: 'name',
-        ellipsis: true,
-      },
-      {
-        title: '标识',
+        title: 'Id',
         dataIndex: 'id',
         ellipsis: true,
       },
       {
-        title: '状态',
-        dataIndex: 'status',
+        title: '描述',
+        dataIndex: 'description',
+        ellipsis: true,
+      },
+      {
+        title: '是否删除',
+        dataIndex: 'isDel',
         width: 100,
         render: (text, record, index) => (
-          <Switch
-            checkedChildren="正常"
-            unCheckedChildren="停用"
-            checked={text}
-            loading={record.statusLoading}
-            onChange={(type) => pageStore.statusChange(type, record, index)}
-          />
+          <div>
+            <Switch
+              checkedChildren="正常"
+              unCheckedChildren="停用"
+              checked={text}
+              loading={record.statusLoading}
+              onChange={(type) => pageStore.statusChange(type, record, index)}
+            />
+          </div>
         ),
       },
       {

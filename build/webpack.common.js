@@ -41,10 +41,25 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'less-loader'
+          {
+            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader
+          },
+          { loader: 'css-loader' },
+          { loader: 'postcss-loader' },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+                modifyVars: {
+                  'primary-color': '#8bc34a',
+                  'link-color': '#8bc34a',
+                  'success-color': '#8bc34a',
+                  'border-radius-base': '2px'
+                },
+                javascriptEnabled: true,
+              },
+            },
+          }
         ],
       },
       {

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 
-let xAxisData = [];
-let data = [];
-for (let i = 0; i < 50; i++) {
+const xAxisData = [];
+const data = [];
+for (let i = 0; i < 50; i += 1) {
     xAxisData.push(i);
     data.push(Math.ceil((Math.cos(i / 5) * (i / 5) + i / 6) * 5) + 10);
 }
@@ -63,7 +63,7 @@ const option = {
         {
         name: 'Simulate Shadow',
         type: 'line',
-        data: data,
+        data,
         z: 2,
         showSymbol: false,
         animationDelay: 0,
@@ -84,7 +84,7 @@ const option = {
     }, {
         name: '完成项目数',
         type: 'bar',
-        data: data,
+        data,
         xAxisIndex: 1,
         z: 3,
         itemStyle: {
@@ -95,18 +95,18 @@ const option = {
     }],
     animationEasing: 'elasticOut',
     animationEasingUpdate: 'elasticOut',
-    animationDelay: function (idx) {
+    animationDelay (idx) {
         return idx * 20;
     },
-    animationDelayUpdate: function (idx) {
+    animationDelayUpdate (idx) {
         return idx * 20;
     }
 };
 const EchartsProjects = () => (
     <ReactEcharts
-        option={option}
-        style={{height: '212px', width: '100%'}}
-        className={'react_for_echarts'}
+      option={option}
+      style={{height: '212px', width: '100%'}}
+      className="react_for_echarts"
     />
 );
 

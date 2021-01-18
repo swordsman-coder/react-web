@@ -1,3 +1,12 @@
+/*
+ * @Autor: zjq
+ * @Description: 
+ * @Version: 1.0
+ * @Date: 2021-01-18 10:07:30
+ * @LastEditors: zjq
+ * @LastEditTime: 2021-01-18 10:55:36
+ * @FilePath: /react-web/build/webpack.dev.js
+ */
 const webpack = require('webpack');
 const {merge} = require('webpack-merge');
 // const path = require('path');
@@ -8,15 +17,16 @@ module.exports = merge(commonConfig, {
   mode: 'development',
   // 开发环境本地启动的服务配置
   devServer: {
-    port: 2016,
+    port: 2015,
     hot: true,
     open: true,
+    openPage: 'http://127.0.0.1:2015/dashboard',
     historyApiFallback: true,
     compress: true,
     // 接口代理转发
     proxy: {
       '/testapi': {
-        target: 'https://www.easy-mock.com/mock/5dff0acd5b188e66c6e07329/react-template',
+        target: 'http://192.168.12.43:9322',
         changeOrigin: true,
         secure: false,
         pathRewrite: { '^/testapi': '' },

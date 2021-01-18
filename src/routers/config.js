@@ -12,6 +12,7 @@ import {
 
 import BasicLayout from '@/layouts/BasicLayout';
 import BlankLayout from '@/layouts/BlankLayout';
+
 const config = [
   {
     path: '/',

@@ -11,7 +11,6 @@ import Qs from 'qs'; // 引入qs模块，用来序列化post类型的数据
 import { message } from 'antd'; // 提示框
 import { autoMatch, checkStatus } from '../utils/index'; // 附近处理函数
 
-let inError = false;
 // 创建axios实例
 const instance = axios.create({
   // baseURL: process.env.BASE_URL,
@@ -47,7 +46,7 @@ instance.interceptors.request.use(
             'Content-Type': 'application/json; charset=UTF-8',
           }
         : {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
           },
       config.headers,
     );
@@ -83,27 +82,24 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     // 对响应数据做处理，以下根据实际数据结构改动！！...
-    const { code } = response.data || {};
-    if (code === 109 || code === 108) {
+    const { status, statuscode } = response || {};
+    if (status) {
       // 请求超时，跳转登录页
-      if (!inError) {
+      if (statuscode === 401) {
         message.warning('登录超时，即将跳转到登录页面...');
-        inError = true;
         setTimeout(() => {
           message.destroy();
-          window.location.href = '/login';
-          inError = false;
+          window.location.href = `http://log-ops.ezrpro.cn/#/login?return=${window.location.origin}`;
         }, 2000);
       }
-
-      return Promise.resolve({});
+      return Promise.resolve({response});
     } else if (response) {
       return Promise.resolve(checkStatus(response));
     }
   },
   (error) => {
     // 对响应错误做处理...
-    // console.log(error);
+    console.log(error);
     if (error.response) {
       return Promise.reject(checkStatus(error.response));
     } else if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
@@ -118,19 +114,18 @@ const request = async (opt) => {
   const options = {
     method: 'get',
     ifHandleError: true, // 是否统一处理接口失败(提示)
-
     ...opt,
   };
   // 匹配接口前缀 开发环境则通过proxy配置转发请求； 生产环境根据实际配置
   options.baseURL = autoMatch(options.prefix);
+  
   try {
-    const res = await instance(options);
-    // console.log(res);
-    if (!res.success && options.ifHandleError) {
+    const { response } = await instance(options);
+    if (!response.data.status) {
       // 自定义参数，是否允许全局提示错误信息
-      message.error(res.message || '请求处理失败！');
+      message.error(response.error || '请求处理失败！');
     }
-    return res;
+    return response.data;
   } catch (err) {
     if (options.ifHandleError) {
       // 自定义参数，是否允许全局提示错误信息

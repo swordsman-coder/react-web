@@ -6,20 +6,7 @@ import dayjs from 'dayjs';
 import request from '@/services/newRequest';
 
 class CompanySetStore {
-  @observable tableData = [
-    {
-      name: '测试用例1',
-      id: '1',
-      createDate: '2019-11-11 11:11',
-      status: true,
-    },
-    {
-      name: '测试用例1',
-      id: '2',
-      createDate: '2019-12-12 12:12',
-      status: false,
-    },
-  ];
+  @observable tableData = [];
 
   @observable loading = false;
 
@@ -85,15 +72,20 @@ class CompanySetStore {
   async qryTableDate(page = 1, size = this.pagination.pageSize) {
     this.loading = true;
     const res = await request({
-      url: '/user/list',
+      url: '/api/TestLibrary/GetPageTestLibraryBySearch',
       method: 'post',
-      data: { page, size, ...this.searchParams },
+      data: {
+        "name": "",
+        "description": "",
+        "chargePerson": "",
+        "chargePersonEmail": "",
+        "pageIndex": 1,
+        "pageSize": 10
+      }
     });
-
-    if (res.success) {
-      const resData = res.data || {};
-      this.tableData = resData.listData || [];
-      this.pagination.total = resData.total;
+    if (res.status) {
+      this.tableData = res.data || [];
+      this.pagination.total = res.totalCount;
       this.pagination.currentPage = page;
       this.pagination.pageSize = size;
     }

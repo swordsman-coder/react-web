@@ -3,16 +3,17 @@
  */
 import React from 'react';
 import { Row, Col, Card, Timeline } from 'antd';
+import {
+  CameraOutlined,
+  CloudOutlined,
+  HeartOutlined,
+  MailOutlined,
+  SyncOutlined,
+} from '@ant-design/icons';
+
 import BreadcrumbCustom from '../widget/BreadcrumbCustom';
 import EchartsViews from './EchartsViews';
 import EchartsProjects from './EchartsProjects';
-import {
-    CameraOutlined,
-    CloudOutlined,
-    HeartOutlined,
-    MailOutlined,
-    SyncOutlined,
-} from '@ant-design/icons';
 
 class Dashboard extends React.Component {
     render() {
@@ -78,7 +79,7 @@ class Dashboard extends React.Component {
                     </Col>
                     <Col className="gutter-row" md={16}>
                         <div className="gutter-box">
-                            <Card bordered={false} className={'no-padding'}>
+                            <Card bordered={false} className="no-padding">
                                 <EchartsProjects />
                             </Card>
                         </div>

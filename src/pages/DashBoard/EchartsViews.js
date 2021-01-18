@@ -109,9 +109,9 @@ const option = {
 
 const EchartsViews = () => (
     <ReactEcharts
-        option={option}
-        style={{height: '350px', width: '100%'}}
-        className={'react_for_echarts'}
+      option={option}
+      style={{height: '350px', width: '100%'}}
+      className="react_for_echarts"
     />
 );
 

@@ -1,3 +1,12 @@
+/*
+ * @Autor: zjq
+ * @Description: 
+ * @Version: 1.0
+ * @Date: 2021-01-18 10:07:30
+ * @LastEditors: zjq
+ * @LastEditTime: 2021-01-18 14:04:14
+ * @FilePath: /react-web/.eslintrc.js
+ */
 module.exports = {
   extends: ['airbnb', 'prettier'],
   env: {
@@ -21,6 +30,7 @@ module.exports = {
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-indent': 0,
+    'react/prefer-stateless-function': 0,
     'react/jsx-wrap-multilines': [
       'error',
       {
@@ -34,6 +44,7 @@ module.exports = {
         extensions: ['.js', '.jsx'],
       },
     ],
+    'jsx-curly-brace-presence': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-has-content': 0,
     'jsx-a11y/click-events-have-key-events': 0,
